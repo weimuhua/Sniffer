@@ -35,7 +35,7 @@ void showdata(const struct pcap_pkthdr *pkthdr,const u_char *packet)//输出原�
         }
 }
 
-void getPacket(u_char *arg,const struct pcap_pkthdr *pkthdr,const u_char *packet)//回调函数
+void callback(u_char *arg,const struct pcap_pkthdr *pkthdr,const u_char *packet)//回调函数
 {
 	int *id=(int *)arg;
 	printf("Id: %d\n",++(*id));
@@ -91,7 +91,7 @@ int main()
 	
 	int id=0;
 
-	pcap_loop(device,-1,getPacket,(u_char *)&id);
+	pcap_loop(device, -1, callback, (u_char *)&id);
 	
 	pcap_close(device);
 	
